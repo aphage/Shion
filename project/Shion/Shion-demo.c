@@ -5,8 +5,7 @@
 
 static PSHION_HOOK g_MessageBoxAHook = NULL;
 
-int WINAPI MyMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType)
-{
+int WINAPI MyMessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType) {
 	typedef int(WINAPI* FuncMessageBoxA)(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
 
 	printf("MessageBoxA %d %s %s %d\r\n", (DWORD)hWnd, lpText, lpCaption, uType);
