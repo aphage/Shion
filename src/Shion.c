@@ -152,11 +152,11 @@ BOOL ShionHook(_In_ PVOID pFunc, _In_ PVOID pNewFunc, _Inout_ PSHION_HOOK pHook)
 
 		ShionInitJumpThunk(&thunk, (ULONG64)pNewFunc);
 		ULONG oldProtect = 0;
+		ShionVirtualProtect(pHook->OriginalData, pHook->OriginalSize, PAGE_EXECUTE_READWRITE, &oldProtect);
 		if (ShionVirtualProtect(pFunc, sizeof(thunk), PAGE_EXECUTE_READWRITE, &oldProtect)) {
 			aqua_memmove(pFunc, &thunk, sizeof(thunk));
 			ShionVirtualProtect(pFunc, sizeof(thunk), oldProtect, &oldProtect);
 
-			ShionVirtualProtect(pHook->OriginalData, pHook->OriginalSize, PAGE_EXECUTE_READWRITE, &oldProtect);
 			pHook->OriginalPtr = pFunc;
 		}
 		return TRUE;
